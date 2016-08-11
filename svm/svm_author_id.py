@@ -20,6 +20,8 @@ from email_preprocess import preprocess
 features_train, features_test, labels_train, labels_test = preprocess()
 
 
+#use 1/100 samples
+
 #features_train = features_train[:len(features_train)/100] 
 #labels_train = labels_train[:len(labels_train)/100] 
 
@@ -27,7 +29,7 @@ features_train, features_test, labels_train, labels_test = preprocess()
 ### your code goes here ###
 from sklearn import svm
 
-
+#use different C and kernell 
 clf=svm.SVC(C=10000.,kernel='rbf')
 
 
@@ -38,6 +40,8 @@ print "training time:", round(time()-t0, 3), "s" #record time used
 t0=time()
 pred=clf.predict(features_test)
 #print pred[10],pred[26],pred[50]
+
+#count how many fearures_test are in group 1
 count=0
 for ele in pred:
 	if ele==1:
