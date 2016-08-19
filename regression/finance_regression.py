@@ -41,8 +41,8 @@ from sklearn.linear_model import LinearRegression
 reg=LinearRegression()
 reg.fit(feature_train,target_train)
 
-print "slope:",reg.coef_
-print "intercept:", reg.intercept_
+print "train_data_slope:",reg.coef_
+print "train_data_intercept:", reg.intercept_
 
 print reg.score(feature_test,target_test)
 
@@ -68,6 +68,12 @@ try:
     plt.plot( feature_test, reg.predict(feature_test) )
 except NameError:
     pass
+#these two line are used to deal with outlier approximately.
+reg.fit(feature_test, target_test)
+print "test_tata_slop:",reg.coef_
+print "test_data_intercept:", reg.intercept_
+plt.plot(feature_train, reg.predict(feature_train), color="b") 
+
 plt.xlabel(features_list[1])
 plt.ylabel(features_list[0])
 plt.legend()
