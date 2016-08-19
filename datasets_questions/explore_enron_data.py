@@ -20,18 +20,16 @@ import pickle
 enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "r"))
 #
 #count poi length or feature size
-print " \n"
-print "E+F data set size:	"+str(len(enron_data))
 
-print " \n"
+
+
 print "data set format {[LASTNAME FIRSTNAME MIDINIT],features},this is SKILLING JEFFREY K: \n"+str(enron_data["SKILLING JEFFREY K"])
 
 countPOI=0
 for person in enron_data:
 	if enron_data[person]["poi"]==1:
 		countPOI+=1
-print " \n"
-print "POI size:	"+str(countPOI)
+
 
 #explore a person's features in enron_data(/data_question/explore_enron_data.py).
 
@@ -59,13 +57,13 @@ for folk in enron_data:
 	if enron_data[folk]["poi"] and enron_data[folk]["total_payments"]=='NaN':
 		poi_not_has_totle_payment_size+=1
 print " \n"
-#How many POIs in the E+F dataset have NaN for their total payments
-print "has_qualified_salary_count:	  "+str(has_salary_count)
-print "has_email_count: 	 "+str(has_email_count)
+print "E+F data set size:	"+str(len(enron_data))
+print "POI size:	"+str(countPOI)
 print " \n"
-print "dont_has_totle_payment_count:	"+str(dont_has_totle_payment)
-print "dont_has_totle_payment fraction:	"+str(dont_has_totle_payment*1.0/(len(enron_data)))
-print " \n"
+print "all_has_qualified_salary_count:	"+str(has_salary_count)
+print "all_has_email_count:	"+str(has_email_count)
+print "all_dont_has_totle_payment_count:	"+str(dont_has_totle_payment)
+print "all_dont_has_totle_payment fraction:	"+str(dont_has_totle_payment*1.0/(len(enron_data)))
 print "poi_not_has_totle_payment_percentage:	"+str(poi_not_has_totle_payment_size*1.0/countPOI)
 
 
