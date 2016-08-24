@@ -26,14 +26,13 @@ ages_train, ages_test, net_worths_train, net_worths_test = train_test_split(ages
 ### fill in a regression here!  Name the regression object reg so that
 ### the plotting code below works, and you can see what your regression looks like
 
+### regression of the origin data
+from sklearn.linear_model import LinearRegression
+reg=LinearRegression()
+reg.fit(ages_train,net_worths_train)
 
-
-
-
-
-
-
-
+print "slope before remove outlier:	", reg.coef_
+print "score before remove outlier:	",reg.score(ages_test,net_worths_test)
 
 
 try:
@@ -73,11 +72,15 @@ if len(cleaned_data) > 0:
         print "you don't seem to have regression imported/created,"
         print "   or else your regression object isn't named reg"
         print "   either way, only draw the scatter plot of the cleaned data"
+
+
     plt.scatter(ages, net_worths)
     plt.xlabel("ages")
     plt.ylabel("net worths")
     plt.show()
 
+    print "refit_slope:	", reg.coef_
+    print "score after remove outlier:	",reg.score(ages_test,net_worths_test)
 
 else:
     print "outlierCleaner() is returning an empty list, no refitting to be done"
