@@ -48,6 +48,7 @@ cleaned_data = []
 try:
     predictions = reg.predict(ages_train)
     cleaned_data = outlierCleaner( predictions, ages_train, net_worths_train )
+    
 except NameError:
     print "your regression object doesn't exist, or isn't name reg"
     print "can't make predictions to use in identifying outliers"

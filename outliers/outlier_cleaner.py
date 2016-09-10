@@ -35,7 +35,7 @@ def outlierCleaner(predictions, ages, net_worths):
     			cleaned_data[j],cleaned_data[j+1]=cleaned_data[j+1],cleaned_data[j]
 
     cleaned_data=cleaned_data[0:81]
-    print cleaned_data
+    #print cleaned_data
 
 
     
