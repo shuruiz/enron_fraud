@@ -44,6 +44,19 @@ data_dict = pickle.load( open("../final_project/final_project_dataset.pkl", "r")
 ### there's an outlier--remove it! 
 data_dict.pop("TOTAL", 0)
 
+minmunn=1000000000000
+maximun=0
+for key in data_dict:#name loop
+	for feature in data_dict[key]:#feature loop
+		if feature=="exercised_stock_options" and data_dict[key][feature]!='NaN' :
+			if data_dict[key][feature]>maximun:
+				maximun=data_dict[key][feature]
+			if data_dict[key][feature]<minmunn:
+				minmunn=data_dict[key][feature]
+
+
+print "minmum value:	", minmunn
+print "maxmum value:	", maximun
 
 ### the input features we want to use 
 ### can be any key in the person-level dictionary (salary, director_fees, etc.) 
