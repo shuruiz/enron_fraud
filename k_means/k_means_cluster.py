@@ -45,16 +45,34 @@ data_dict = pickle.load( open("../final_project/final_project_dataset.pkl", "r")
 data_dict.pop("TOTAL", 0)
 
 
-###code below is used to find the maximum and minimum value of one feature
-# minmunn=1000000000000
-# maximun=0
-# for key in data_dict:#name loop
-# 	for feature in data_dict[key]:#feature loop
-# 		if feature=="salary" and data_dict[key][feature]!='NaN' :
-# 			if data_dict[key][feature]>maximun:
-# 				maximun=data_dict[key][feature]
-# 			if data_dict[key][feature]<minmunn:
-# 				minmunn=data_dict[key][feature]
+##code below is used to find the maximum and minimum value of one feature
+def MinMax(featureName,data_dict):
+	minmunn=1000000000000
+	maximun=0
+	for key in data_dict:#name loop
+		for feature in data_dict[key]:#feature loop
+			if feature==featureName and data_dict[key][feature]!='NaN' :
+				if data_dict[key][feature]>maximun:
+					maximun=data_dict[key][feature]
+				if data_dict[key][feature]<minmunn:
+					minmunn=data_dict[key][feature]
+	print featureName, "max:",maximun,"min:",minmunn,"minus:",(maximun-minmunn)
+	return maximun,minmunn
+	
+
+def featureScaling(featureName,data_dict):
+	maxv,minv=MinMax(featureName,data_dict)
+	from sklearn.preprocessing import MinMaxScaler
+	#scaler=MinMaxScaler()
+	for key in data_dict:#name loop
+		for feature in data_dict[key]:#feature loop
+			if feature==featureName and data_dict[key][feature]!='NaN' :
+				data_dict[key][feature]=(data_dict[key][feature]-minv)*1.0/(maxv-minv)
+
+
+featureScaling("salary",data_dict)
+featureScaling("exercised_stock_options",data_dict)
+
 
 
 # print "salary minmum value:	", minmunn
@@ -66,7 +84,7 @@ feature_1 = "salary"
 feature_2 = "exercised_stock_options"
 feature_3="total_payments"
 poi  = "poi"
-features_list = [poi, feature_1, feature_2,feature_3]
+features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
 
@@ -75,8 +93,8 @@ poi, finance_features = targetFeatureSplit( data )
 ### you'll want to change this line to 
 ### for f1, f2, _ in finance_features:
 ### (as it's currently written, the line below assumes 2 features)
-for f1, f2, f3 in finance_features:
-    plt.scatter( f1, f2, f3)
+for f1, f2 in finance_features:
+    plt.scatter( f1, f2)
 plt.show()
 
 ### cluster here; create predictions of the cluster labels
@@ -90,6 +108,6 @@ pred=KMeans(n_clusters=2).fit_predict(finance_features)
 ### rename the "name" parameter when you change the number of features
 ### so that the figure gets saved to a different file
 try:
-    Draw(pred, finance_features, poi, mark_poi=False, name="clusters_3D.pdf", f1_name=feature_1, f2_name=feature_2,f3_name=feature_3)
+    Draw(pred, finance_features, poi, mark_poi=False, name="clusters_scaler.pdf", f1_name=feature_1, f2_name=feature_2)
 except NameError:
     print "no predictions object named pred found, no clusters to plot"
