@@ -5,4 +5,9 @@ from nltk.corpus import stopwords
 
 
 sw=stopwords.words("english")
-print sw
+#print sw
+
+#use stemmer in nltk
+from nltk.stem.snowball import SnowballStemmer
+stemmer=SnowballStemmer("english")
+print stemmer.stem("responsiveness")
