@@ -29,14 +29,28 @@ def parseOutText(f):
 
         ### project part 2: comment out the line below
         words = text_string
+        process=words
 
         ### split the text string into individual words, stem each word,
         ### and append the stemmed word to words (make sure there's a single
         ### space between each stemmed word)
-        
 
-
-
+        process.strip()
+        unstemmed=process.split()
+        stemmed =[]
+        from nltk.stem.snowball import SnowballStemmer
+        stemmer=SnowballStemmer("english")
+        for unstem in unstemmed:
+        	st=stemmer.stem(unstem)
+        	stemmed.append(st)
+        	# if st not in stemmed:
+        	# 	stemmed.append(st)
+        	# else:
+        	# 	pass
+        #creat a new object "words" are not the same
+        words=""
+        for std in stemmed:
+        	words+=std+' '
 
     return words
 
